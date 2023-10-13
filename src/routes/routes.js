@@ -7,12 +7,11 @@ import Login from "../components/login";
 import Users from "../components/users";
 import { getToken } from "../services/token.service";
 import Layout from "../shared/layouts";
+import Authroutes from "./authroutes";
 
 const Routes = () => {
-  const token = getToken();
 
-  const routesForPublic = [
-   
+  const routesForPublic = [   
     {
       path: "/",
       element: <Layout />,
@@ -35,6 +34,7 @@ const Routes = () => {
           path: "/login",
           element: <Login />,
         },
+        
       ],
     },
   ];
@@ -46,27 +46,29 @@ const Routes = () => {
       children: [
         {
           path: "/",
-          element: <Users />,
-        },
-        {
-          path: "/users",
-          element: <Users />,
-        },
-        {
-          path: "/Add",
-          element: <add />,
-        },
-        {
-          path: "/logout",
-          element: <Login />,
-        },
+          element: <Authroutes/>,
+          children:[
+            {
+              path: "/users",
+              element: <Users />,
+            },
+            {
+              path: "/Add",
+              element: <add />,
+            },
+            {
+              path: "/logout",
+              element: <Login />,
+            },  
+          ]
+        }, 
       ],
     },
   ];
 
   const router = createBrowserRouter([
     ...routesForPublic,
-    ...(token ? routesForAuthnticated : []),
+    ...routesForAuthnticated,
   ]);
 
   console.log(router.routes);

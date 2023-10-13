@@ -6,12 +6,6 @@ import Menu from "./menu";
 const Layout = () => {
   const token = getToken();
 
-  // Check if the user is authenticated
-  // if (!token) {
-  //   console.log("token is null");
-  //   // If not authenticated, redirect to the login page
-  //   return <Navigate to="/login" />;
-  // }
   return (
     <>
       <Menu />

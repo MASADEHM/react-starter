@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Navigate, useNavigate, useNavigation } from "react-router-dom";
 import { Nav, Container } from "react-bootstrap";
 import { getToken, removeToken } from "../services/token.service";
+import Login from "../components/login";
 
 const Menu = () => {
   const token = getToken();
@@ -10,7 +11,7 @@ const Menu = () => {
   const Logout = (e) => {
     e.preventDefault();
     removeToken();
-    nav("/", { replace: true });
+   nav("/", { replace: true });
   };
 
   const PublicLinks = [

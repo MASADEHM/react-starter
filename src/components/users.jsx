@@ -4,14 +4,14 @@ import Api from "../services/users.service";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  let userslist = [];
+  
   useEffect(() => {
-    const result = Api.fetchUsers().then((res) => {
-      userslist = res.data;
+     Api.fetchUsers().then((res) => {
       setUsers(res.data);
       setLoading(false);
     });
   }, []);
+  
   return (
     <>
       <h1>welcome to users</h1>

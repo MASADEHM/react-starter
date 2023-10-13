@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { Loginservice } from "../services/login.service";
-import { setToken } from "../services/token.service";
-import Menu from "../shared/menu";
+import { getToken, setToken } from "../services/token.service";
 
 const Login = () => {
   const [values, setValues] = useState(null);
   const navigate = useNavigate();
   const [err, setErr] = useState("");
+  const token=getToken();
+
+  if(token){
+    console.log('redirect to users')
+    return(<Navigate to="/users" replace={true}/>)
+  }
 
   //#region  updateState
   const handleChange = (e) => {
@@ -24,10 +29,9 @@ const Login = () => {
     Loginservice(values).then((r) => {
       console.log(r.data);
       if (r.data.data) {
-        console.log("set token");
         console.log(r.data.data.Token);
         setToken(r.data.data.Token);
-        navigate("/");
+        navigate("/users");
       } else {
         setErr("invalid login");
         console.log(err);
@@ -37,7 +41,6 @@ const Login = () => {
   //#endregion
   return (
     <>
-      
       <div className="container">
         <div className="row">
           <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
