@@ -5,9 +5,9 @@ import ContactUs from "../components/contactus";
 import { Home } from "../components/home";
 import Login from "../components/login";
 import Users from "../components/users";
-import { getToken } from "../services/token.service";
 import Layout from "../shared/layouts";
 import Authroutes from "./authroutes";
+import AddEvent from "../components/Events/Add";
 
 const Routes = () => {
 
@@ -54,7 +54,7 @@ const Routes = () => {
             },
             {
               path: "/Add",
-              element: <add />,
+              element: <AddEvent />,
             },
             {
               path: "/logout",
@@ -68,7 +68,7 @@ const Routes = () => {
 
   const router = createBrowserRouter([
     ...routesForPublic,
-    ...routesForAuthnticated,
+    ...routesForAuthnticated
   ]);
 
   console.log(router.routes);

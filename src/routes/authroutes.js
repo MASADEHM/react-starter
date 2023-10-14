@@ -4,6 +4,8 @@ import { getToken } from "../services/token.service"
 const Authroutes=()=>{
     const token=getToken();
     console.log('calling authroutes');
-    return(token?<Outlet/>:<Navigate to="/login" replace="true"/>)
+    return(!token
+        ?<Navigate to="/login" replace="true"/>
+    :<Outlet/>)
 }
 export default Authroutes

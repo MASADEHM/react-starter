@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import React, {  useState } from "react";
+import { Navigate,  useNavigate } from "react-router-dom";
 import { Loginservice } from "../services/login.service";
 import { getToken, setToken } from "../services/token.service";
+import { Container, Row, Toast } from "react-bootstrap";
 
 const Login = () => {
   const [values, setValues] = useState(null);
   const navigate = useNavigate();
   const [err, setErr] = useState("");
-  const token=getToken();
+  const [show, setShow] = useState(false)
+  const token = getToken();
 
-  if(token){
+  if (token) {
     console.log('redirect to users')
-    return(<Navigate to="/users" replace={true}/>)
+    return (<Navigate to="/users" replace={true} />)
   }
 
   //#region  updateState
@@ -34,6 +36,7 @@ const Login = () => {
         navigate("/users");
       } else {
         setErr("invalid login");
+        setShow(true)
         console.log(err);
       }
     });
@@ -41,11 +44,25 @@ const Login = () => {
   //#endregion
   return (
     <>
-      <div className="container">
-        <div className="row">
+      <Container>
+        <Row>
+          <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <Toast bg="Info" className="d-inline-block m-1" onClose={() => { setShow(false) }} show={show} delay={3000} autohide>
+              <Toast.Header>
+                <strong className="me-auto">Info</strong>
+                <small>just now</small>
+              </Toast.Header>
+              <Toast.Body>
+                Error login {err}
+              </Toast.Body>
+            </Toast>
+          </div>
+        </Row>
+        <Row>
           <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div className="card border-0 shadow rounded-3 my-5">
               <div className="card-body p-4 p-sm-5">
+
                 <h5 className="card-title text-center mb-5 fw-light fs-5">
                   Sign In
                 </h5>
@@ -87,8 +104,8 @@ const Login = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Row>
+      </Container>
     </>
   );
 };

@@ -15,15 +15,17 @@ const Menu = () => {
   };
 
   const PublicLinks = [
-    { Path: "/About", Title: "About" },
-    { Path: "/ContactUs", Title: "Contact Us" },
+    { Id:1,Path: "/About", Title: "About" },
+    { Id:2,Path: "/ContactUs", Title: "Contact Us" },
   ];
   const AuthnticatedLinks = [
     {
+      Id:3,
       Path: "/users",
       Title: "Users",
     },
     {
+      Id:4,
       Path: "/Add",
       Title: "Add",
     },
@@ -41,9 +43,9 @@ const Menu = () => {
         </Link>
         <Nav>
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            {Links.map((d, i) => (
-              <li>
-                <Link to={d.Path} className="nav-link px-2 link-secondary">
+            {Links.map((d) => (
+              <li key={d.Id}>
+                <Link  to={d.Path} className="nav-link px-2 link-secondary">
                   {d.Title}
                 </Link>
               </li>

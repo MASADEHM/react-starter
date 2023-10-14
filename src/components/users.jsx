@@ -5,9 +5,11 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
   
+
   useEffect(() => {
-     Api.fetchUsers().then((res) => {
+   const result=  Api.fetchUsers().then((res) => {
       setUsers(res.data);
+      console.log(res.data)
       setLoading(false);
     });
   }, []);
