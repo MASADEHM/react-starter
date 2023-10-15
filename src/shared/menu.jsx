@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, Navigate, useNavigate, useNavigation } from "react-router-dom";
-import { Nav, Container } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Nav, Container, Navbar } from "react-bootstrap";
 import { getToken, removeToken } from "../services/token.service";
-import Login from "../components/login";
 
 const Menu = () => {
   const token = getToken();
@@ -11,21 +10,21 @@ const Menu = () => {
   const Logout = (e) => {
     e.preventDefault();
     removeToken();
-   nav("/", { replace: true });
+    nav("/", { replace: true });
   };
 
   const PublicLinks = [
-    { Id:1,Path: "/About", Title: "About" },
-    { Id:2,Path: "/ContactUs", Title: "Contact Us" },
+    { Id: 1, Path: "/About", Title: "About" },
+    { Id: 2, Path: "/ContactUs", Title: "Contact Us" },
   ];
   const AuthnticatedLinks = [
     {
-      Id:3,
+      Id: 3,
       Path: "/users",
       Title: "Users",
     },
     {
-      Id:4,
+      Id: 4,
       Path: "/Add",
       Title: "Add",
     },
@@ -39,13 +38,17 @@ const Menu = () => {
           to="/"
           className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
         >
-          Event CX
+          {/* <img src="../../src/assests/zeroone.png"/> */}
+          
+          Event Cx
         </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Nav>
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             {Links.map((d) => (
               <li key={d.Id}>
-                <Link  to={d.Path} className="nav-link px-2 link-secondary">
+                <Link to={d.Path} className="nav-link px-2 link-secondary">
                   {d.Title}
                 </Link>
               </li>

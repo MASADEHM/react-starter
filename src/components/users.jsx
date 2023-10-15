@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Api from "../services/users.service";
+import UsersService from "../services/users.service";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  
 
   useEffect(() => {
-   const result=  Api.fetchUsers().then((res) => {
-      setUsers(res.data);
-      console.log(res.data)
+    UsersService().then((d) => {
+      setUsers(d.data);
       setLoading(false);
     });
   }, []);
-  
+
   return (
     <>
       <h1>welcome to users</h1>

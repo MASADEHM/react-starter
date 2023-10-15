@@ -1,19 +1,25 @@
-import React, {  useState } from "react";
-import { Navigate,  useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Loginservice } from "../services/login.service";
 import { getToken, setToken } from "../services/token.service";
-import { Container, Row, Toast } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Toast,
+  Col,
+  ToastContainer,
+} from "react-bootstrap";
 
 const Login = () => {
   const [values, setValues] = useState(null);
   const navigate = useNavigate();
   const [err, setErr] = useState("");
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
   const token = getToken();
 
   if (token) {
-    console.log('redirect to users')
-    return (<Navigate to="/users" replace={true} />)
+    console.log("redirect to users");
+    return <Navigate to="/users" replace={true} />;
   }
 
   //#region  updateState
@@ -36,7 +42,7 @@ const Login = () => {
         navigate("/users");
       } else {
         setErr("invalid login");
-        setShow(true)
+        setShow(true);
         console.log(err);
       }
     });
@@ -46,23 +52,30 @@ const Login = () => {
     <>
       <Container>
         <Row>
-          <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <Toast bg="Info" className="d-inline-block m-1" onClose={() => { setShow(false) }} show={show} delay={3000} autohide>
-              <Toast.Header>
-                <strong className="me-auto">Info</strong>
-                <small>just now</small>
-              </Toast.Header>
-              <Toast.Body>
-                Error login {err}
-              </Toast.Body>
-            </Toast>
-          </div>
+          <Col className="mx-auto" sm={9} md={7} lg={5}>
+            <ToastContainer
+              position="top-center"
+              className="p-3"
+              style={{ zIndex: 1 }}
+            >
+              <Toast
+                className="d-inline-block m-1"
+                onClose={() => {
+                  setShow(false);
+                }}
+                show={show}
+                delay={3000}
+                autohide
+              >
+                <Toast.Body>Error login {err}</Toast.Body>
+              </Toast>
+            </ToastContainer>
+          </Col>
         </Row>
         <Row>
           <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div className="card border-0 shadow rounded-3 my-5">
               <div className="card-body p-4 p-sm-5">
-
                 <h5 className="card-title text-center mb-5 fw-light fs-5">
                   Sign In
                 </h5>
