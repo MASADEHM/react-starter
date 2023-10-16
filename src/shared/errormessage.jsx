@@ -1,8 +1,10 @@
 import { Toast } from "bootstrap";
 import React from "react";
 import { ToastBody, ToastContainer } from "react-bootstrap";
+
 const Errormessage = (props) => {
-  return new (
+
+  return (
     <ToastContainer className="p-3" style={{ zIndex: 1 }} position="top-center">
       <Toast
         className="d-inline-block m-1"

@@ -2,7 +2,7 @@ import React from "react";
 const ContactUs = () => {
   return (
     <>
-      <h2>welcome to contact us</h2>
+      <h1>welcome to contact us</h1>
     </>
   );
 };

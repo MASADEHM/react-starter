@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Loginservice } from "../services/login.service";
-import { getToken, setToken } from "../services/token.service";
-import { Container, Row, Toast, Col, ToastContainer } from "react-bootstrap";
-import Errormessage from "../shared/errormessage";
+import { getCookie, setCookies } from "../services/token.service";
+import { Container, Row, Toast, Col, ToastContainer, Spinner } from "react-bootstrap";
 
 const Login = () => {
   const [values, setValues] = useState(null);
   const navigate = useNavigate();
   const [err, setErr] = useState("");
   const [show, setShow] = useState(false);
-  const token = getToken();
+  const [isLoading, setisLoading] = useState(false)
+  const token = getCookie();
 
   if (token) {
     console.log("redirect to users");
@@ -28,16 +28,19 @@ const Login = () => {
   //#region  submit
   const handleSubmit = (e) => {
     e.preventDefault();
+    setisLoading(true)
     // call the login service and set the token
     Loginservice(values).then((r) => {
       console.log(r.data);
       if (r.data.data) {
         console.log(r.data.data.Token);
-        setToken(r.data.data.Token);
+        setCookies(r.data.data.Token)
+        //setToken(r.data.data.Token);
         navigate("/users");
       } else {
         setErr("invalid login");
         setShow(true);
+        setisLoading(false)
         console.log(err);
       }
     });
@@ -48,9 +51,8 @@ const Login = () => {
       <Container>
         <Row>
           <Col className="mx-auto" sm={9} md={7} lg={5}>
-           {/* {show && <Errormessage show={show} Error={err} />}  */}
             <ToastContainer
-              position="top-center"
+              position="top-end"
               className="p-3"
               style={{ zIndex: 1 }}
             >
@@ -63,7 +65,7 @@ const Login = () => {
                 delay={3000}
                 autohide
               >
-                <Toast.Body>Error  {err}</Toast.Body>
+                <Toast.Body>{err}</Toast.Body>
               </Toast>
             </ToastContainer>
           </Col>
@@ -102,12 +104,13 @@ const Login = () => {
                   </div>
 
                   <div className="d-grid">
-                    <button
+                    {!isLoading && <button
                       className="btn btn-primary btn-login text-uppercase fw-bold"
                       type="submit"
                     >
                       Sign in
-                    </button>
+                    </button>}
+                    {isLoading && <Spinner variant='primary' />}
                   </div>
                 </form>
               </div>

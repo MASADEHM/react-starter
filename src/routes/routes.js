@@ -8,10 +8,11 @@ import Users from "../components/users";
 import Layout from "../shared/layouts";
 import Authroutes from "./authroutes";
 import AddEvent from "../components/Events/Add";
+import NotFound from "../shared/notfound";
 
 const Routes = () => {
 
-  const routesForPublic = [   
+  const routesForPublic = [
     {
       path: "/",
       element: <Layout />,
@@ -34,7 +35,10 @@ const Routes = () => {
           path: "/login",
           element: <Login />,
         },
-        
+        {
+          path: '*',
+          element: <NotFound />
+        }
       ],
     },
   ];
@@ -46,8 +50,8 @@ const Routes = () => {
       children: [
         {
           path: "/",
-          element: <Authroutes/>,
-          children:[
+          element: <Authroutes />,
+          children: [
             {
               path: "/users",
               element: <Users />,
@@ -59,9 +63,9 @@ const Routes = () => {
             {
               path: "/logout",
               element: <Login />,
-            },  
+            },
           ]
-        }, 
+        },
       ],
     },
   ];

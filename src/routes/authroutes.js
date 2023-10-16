@@ -1,10 +1,11 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { getToken } from "../services/token.service"
+import { getCookie } from "../services/token.service"
 
 const Authroutes=()=>{
-    const token=getToken();
+    const token=getCookie();
     console.log('calling authroutes');
+    console.log(token)
     return(!token
         ?<Navigate to="/login" replace="true"/>
     :<Outlet/>)

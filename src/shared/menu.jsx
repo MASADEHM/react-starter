@@ -1,15 +1,15 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav, Container, Navbar } from "react-bootstrap";
-import { getToken, removeToken } from "../services/token.service";
+import { getCookie, removeCookie } from "../services/token.service";
 
 const Menu = () => {
-  const token = getToken();
+  const token = getCookie();
   const nav = useNavigate();
 
   const Logout = (e) => {
     e.preventDefault();
-    removeToken();
+    removeCookie();
     nav("/", { replace: true });
   };
 
@@ -39,7 +39,7 @@ const Menu = () => {
           className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
         >
           {/* <img src="../../src/assests/zeroone.png"/> */}
-          
+
           Event Cx
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

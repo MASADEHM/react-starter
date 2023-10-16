@@ -1,14 +1,17 @@
-const key = "token";
+import Cookies from "universal-cookie";
 
-export const setToken = (Token) => {
-  if (Token) {
-    localStorage.setItem(key, Token);
-  }
-};
+const key = "_cookieEvcx";
 
-export const removeToken = () => {
-  localStorage.removeItem(key);
-};
-export const getToken = () => {
-  return localStorage.getItem(key);
-};
+
+export const setCookies = (token) => {
+  const cookie = new Cookies();
+  cookie.set(key, token, { path: '/' })
+}
+export const removeCookie = () => {
+  const cookie = new Cookies();
+  cookie.remove(key)
+}
+export const getCookie = () => {
+  const cookie = new Cookies();
+  return cookie.get(key)
+}
