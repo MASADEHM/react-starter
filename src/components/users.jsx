@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import UsersService from "../services/users.service";
 
 const Users = () => {
@@ -7,6 +8,8 @@ const Users = () => {
 
   useEffect(() => {
     UsersService().then((d) => {
+      console.log("set users");
+      console.log(d);
       setUsers(d.data);
       setLoading(false);
     });
@@ -15,7 +18,7 @@ const Users = () => {
   return (
     <>
       <h1>welcome to users</h1>
-      {isLoading && <h3>Loading</h3>}
+      {isLoading && <Spinner />}
       <ul>
         {users.map((d) => (
           <li key={d.id}>{d.name}</li>

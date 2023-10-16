@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Loginservice } from "../services/login.service";
 import { getToken, setToken } from "../services/token.service";
-import {
-  Container,
-  Row,
-  Toast,
-  Col,
-  ToastContainer,
-} from "react-bootstrap";
+import { Container, Row, Toast, Col, ToastContainer } from "react-bootstrap";
+import Errormessage from "../shared/errormessage";
 
 const Login = () => {
   const [values, setValues] = useState(null);
@@ -53,6 +48,7 @@ const Login = () => {
       <Container>
         <Row>
           <Col className="mx-auto" sm={9} md={7} lg={5}>
+           {/* {show && <Errormessage show={show} Error={err} />}  */}
             <ToastContainer
               position="top-center"
               className="p-3"
@@ -67,7 +63,7 @@ const Login = () => {
                 delay={3000}
                 autohide
               >
-                <Toast.Body>Error login {err}</Toast.Body>
+                <Toast.Body>Error  {err}</Toast.Body>
               </Toast>
             </ToastContainer>
           </Col>
