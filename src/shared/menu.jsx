@@ -55,13 +55,8 @@ const Menu = () => {
             ))}
             {token && (
               <li>
-                <a
-                  href="#"
-                  onClick={Logout}
-                  className="nav-link px-2 link-secondary"
-                >
-                  Logout
-                </a>
+                <Link className="nav-link px-2 link-secondary" onClick={Logout}>Logout</Link>
+
               </li>
             )}
             {!token && (

@@ -1,9 +1,8 @@
-import axios from "axios";
-const UsersService = async () => {
-  const url = "https://jsonplaceholder.typicode.com/users";
-  return await axios
-    .get(url)
-    .then((r) => r)
-    .catch((err) => err);
-};
-export default UsersService;
+import { axiosInstance } from "./axios.interceptor";
+
+export const userService = async () => {
+  return await axiosInstance
+    .get("https://jsonplaceholder.typicode.com/users")
+    .then(d => d)
+    .catch(err => { console.log(err) })
+}

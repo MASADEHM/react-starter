@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import UsersService from "../services/users.service";
+import { userService } from "../services/users.service";
+
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    UsersService().then((d) => {
+    userService().then((d) => {
       console.log("set users");
       console.log(d);
       setUsers(d.data);

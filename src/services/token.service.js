@@ -13,5 +13,6 @@ export const removeCookie = () => {
 }
 export const getCookie = () => {
   const cookie = new Cookies();
-  return cookie.get(key)
+  
+  return cookie.get(key);
 }
