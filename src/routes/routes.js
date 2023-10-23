@@ -1,14 +1,14 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import About from "../components/about";
-import ContactUs from "../components/contactus";
-import { Home } from "../components/home";
-import Login from "../components/login";
-import Users from "../components/users";
+import ContactUs from "../pages/contactus";
+import { Home } from "../pages/home";
+import Login from "../pages/login";
+import Users from "../pages/users";
 import Layout from "../shared/layouts";
 import Authroutes from "./authroutes";
 import AddEvent from "../components/Events/Add";
 import NotFound from "../shared/notfound";
+import About from "../pages/about";
 
 const Routes = () => {
 

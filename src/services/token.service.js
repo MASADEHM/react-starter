@@ -2,7 +2,6 @@ import Cookies from "universal-cookie";
 
 const key = "_cookieEvcx";
 
-
 export const setCookies = (token) => {
   const cookie = new Cookies();
   cookie.set(key, token, { path: '/' })

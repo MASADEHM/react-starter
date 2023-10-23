@@ -38,9 +38,9 @@ const Menu = () => {
           to="/"
           className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
         >
-          {/* <img src="../../src/assests/zeroone.png"/> */}
+          <img src={require('../assests/zeroone.png')} width={90} height={35} alt="logo" />
 
-          Event Cx
+       
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
