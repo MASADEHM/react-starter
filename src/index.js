@@ -3,16 +3,17 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./routes/routes";
 import App from "./App";
-
-
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Routes>
-   
+    <Provider store={store}>
+      <Routes>
         <App />
-   
-    </Routes>
+      </Routes>
+    </Provider>
+
   </React.StrictMode>
 );
 

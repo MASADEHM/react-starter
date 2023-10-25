@@ -2,14 +2,19 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav, Container, Navbar } from "react-bootstrap";
 import { getCookie, removeCookie } from "../services/token.service";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "../store/login.slice";
 
 const Menu = () => {
   const token = getCookie();
   const nav = useNavigate();
-
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.login.isLoggedIn)
   const Logout = (e) => {
     e.preventDefault();
+    dispatch(signOut())
     removeCookie();
+
     nav("/", { replace: true });
   };
 
@@ -40,7 +45,7 @@ const Menu = () => {
         >
           <img src={require('../assests/zeroone.png')} width={90} height={35} alt="logo" />
 
-       
+
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
@@ -53,13 +58,13 @@ const Menu = () => {
                 </Link>
               </li>
             ))}
-            {token && (
+            {isLoggedIn && (
               <li>
                 <Link className="nav-link px-2 link-secondary" onClick={Logout}>Logout</Link>
 
               </li>
             )}
-            {!token && (
+            {!isLoggedIn && (
               <li>
                 <Link to="/login" className="nav-link px-2 link-secondary">
                   Login

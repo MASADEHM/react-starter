@@ -3,17 +3,30 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Loginservice } from "../services/login.service";
 import { getCookie, setCookies } from "../services/token.service";
 import { Container, Row, Toast, Col, ToastContainer, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { singIn } from "../store/login.slice";
 
 const Login = () => {
+  //#region states
   const [values, setValues] = useState(null);
-  const navigate = useNavigate();
   const [err, setErr] = useState("");
   const [show, setShow] = useState(false);
   const [isLoading, setisLoading] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
+  //#endregion
   const token = getCookie();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn)
+  const dispatch = useDispatch()
 
+  //will check cookie if exist and dispatch the sign in
   if (token) {
-    console.log("redirect to users");
+    console.log('cookie exisits')
+    dispatch(singIn())
+  }
+  //redirect if user is already logged in
+  if (isLoggedIn) {
+    console.log(['isloggedin', isLoggedIn])
     return <Navigate to="/users" replace={true} />;
   }
 
@@ -33,9 +46,12 @@ const Login = () => {
     Loginservice(values).then((r) => {
       console.log(r.data);
       if (r.data.data) {
-        console.log(r.data.data.Token);
-        setCookies(r.data.data.Token)
-        //setToken(r.data.data.Token);
+        if (rememberMe) {
+          setCookies(rememberMe)
+        }
+        dispatch(singIn())
+
+        // setCookies(r.data.data.Token);
         navigate("/users");
       } else {
         setErr("invalid login");
@@ -111,6 +127,10 @@ const Login = () => {
                       Sign in
                     </button>}
                     {isLoading && <Spinner variant='primary' />}
+                  </div>
+                  <div className="form-check mt-3">
+                    <input type="checkbox" onChange={() => { setRememberMe(!rememberMe) }} className="form-check-input" id="exampleCheck1" />
+                    <label className="form-check-label" for="exampleCheck1">Remember Me</label>
                   </div>
                 </form>
               </div>
