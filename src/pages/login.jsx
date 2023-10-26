@@ -21,12 +21,10 @@ const Login = () => {
 
   //will check cookie if exist and dispatch the sign in
   if (token) {
-    console.log('cookie exisits')
     dispatch(singIn())
   }
   //redirect if user is already logged in
   if (isLoggedIn) {
-    console.log(['isloggedin', isLoggedIn])
     return <Navigate to="/users" replace={true} />;
   }
 
@@ -50,8 +48,6 @@ const Login = () => {
           setCookies(rememberMe)
         }
         dispatch(singIn())
-
-        // setCookies(r.data.data.Token);
         navigate("/users");
       } else {
         setErr("invalid login");

@@ -1,13 +1,19 @@
 import React from "react";
 import CCarousel from "../components/carousel";
 import CCards from "../components/cards";
-import { useSelector } from "react-redux";
+import { getCookie } from "../services/token.service";
+import { useDispatch } from "react-redux";
+import { singIn } from "../store/login.slice";
 export const Home = () => {
-  const isLoggedIn = useSelector(state => state.login.isLoggedIn)
-  console.log(isLoggedIn)
+  
+  const dispatch = useDispatch();
+  const cookie = getCookie();
+  if (cookie) {
+    dispatch(singIn())
+  }
   return (
     <>
-      
+
       <h1>welcome to event CX</h1>
       <CCarousel />
       <br />
