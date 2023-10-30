@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../store/login.slice";
 
 const Menu = () => {
-  const token = getCookie();
+  //const token = getCookie();
   const nav = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn)
@@ -34,7 +34,7 @@ const Menu = () => {
       Title: "Add",
     },
   ];
-  const Links = [...(!token ? PublicLinks : AuthnticatedLinks)];
+  const Links = [...(!isLoggedIn ? PublicLinks : AuthnticatedLinks)];
 
   return (
     <Container>

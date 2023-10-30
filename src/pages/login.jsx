@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Loginservice } from "../services/login.service";
 import { getCookie, setCookies } from "../services/token.service";
-import { Container, Row, Toast, Col, ToastContainer, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Toast,
+  Col,
+  ToastContainer,
+  Spinner,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { singIn } from "../store/login.slice";
 
@@ -11,17 +18,18 @@ const Login = () => {
   const [values, setValues] = useState(null);
   const [err, setErr] = useState("");
   const [show, setShow] = useState(false);
-  const [isLoading, setisLoading] = useState(false)
-  const [rememberMe, setRememberMe] = useState(false)
+  const [isLoading, setisLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   //#endregion
   const token = getCookie();
   const navigate = useNavigate();
-  const isLoggedIn = useSelector((state) => state.login.isLoggedIn)
-  const dispatch = useDispatch()
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+  const dispatch = useDispatch();
 
   //will check cookie if exist and dispatch the sign in
+ 
   if (token) {
-    dispatch(singIn())
+    dispatch(singIn());
   }
   //redirect if user is already logged in
   if (isLoggedIn) {
@@ -39,20 +47,20 @@ const Login = () => {
   //#region  submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    setisLoading(true)
+    setisLoading(true);
     // call the login service and set the token
     Loginservice(values).then((r) => {
       console.log(r.data);
       if (r.data.data) {
         if (rememberMe) {
-          setCookies(rememberMe)
+          setCookies(rememberMe);
         }
-        dispatch(singIn())
+        dispatch(singIn());
         navigate("/users");
       } else {
         setErr("invalid login");
         setShow(true);
-        setisLoading(false)
+        setisLoading(false);
         console.log(err);
       }
     });
@@ -116,17 +124,28 @@ const Login = () => {
                   </div>
 
                   <div className="d-grid">
-                    {!isLoading && <button
-                      className="btn btn-primary btn-login text-uppercase fw-bold"
-                      type="submit"
-                    >
-                      Sign in
-                    </button>}
-                    {isLoading && <Spinner variant='primary' />}
+                    {!isLoading && (
+                      <button
+                        className="btn btn-primary btn-login text-uppercase fw-bold"
+                        type="submit"
+                      >
+                        Sign in
+                      </button>
+                    )}
+                    {isLoading && <Spinner variant="primary" />}
                   </div>
                   <div className="form-check mt-3">
-                    <input type="checkbox" onChange={() => { setRememberMe(!rememberMe) }} className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" for="exampleCheck1">Remember Me</label>
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        setRememberMe(!rememberMe);
+                      }}
+                      className="form-check-input"
+                      id="exampleCheck1"
+                    />
+                    <label className="form-check-label" for="exampleCheck1">
+                      Remember Me
+                    </label>
                   </div>
                 </form>
               </div>
